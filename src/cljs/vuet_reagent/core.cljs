@@ -4,14 +4,18 @@
               [secretary.core :as secretary :include-macros true]
               [goog.events :as events]
               [goog.history.EventType :as EventType]
-              [cljsjs.react :as react])
+              [cljsjs.react :as react] 
+              [vuet-reagent.main-page :as main-page])
     (:import goog.History))
 
 ;; -------------------------
 ;; Views
 
+
 (defn home-page []
-  [:div [:h2 "Welcome to vuet_reagent"]
+  [:div 
+   [main-page/main]
+   [:h2 "Welcome to vuet_reagent"]
    [:div [:a {:href "#/about"} "go to about page"]]])
 
 (defn about-page []
