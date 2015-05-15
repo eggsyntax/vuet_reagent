@@ -9,23 +9,12 @@
               )
     (:import goog.History))
 
-(def default-value
+(defonce default-db-value
   {:name "reagent vuet db"
-   :zipper (h/new-zipper)
-   })
+   :zipper (h/new-zipper)})
 
-(def db (atom default-value))
-
-(defn flip-zipper [& args]
-  (println "args " args)
-  (swap! db assoc :zipper "new zipper!")
-  (println @db))
-
-(defn append-action [& args]
-  (println "args " args)
-  (swap! db assoc :zipper
-         (h/append (:zipper @db)))
-  (println @db))
+; Lovely easy-access global variable. I mean database.
+(defonce db (atom default-db-value))
 
 (defn act-on-keypress [event & args]
   (let [lower-int (fn [v] (+ v 32))
@@ -37,9 +26,7 @@
 (defn main []
  (fn [] 
    [:div 
-    [:input {:on-click append-action 
-             :on-key-down act-on-keypress}]
-    [:str "Hello there!"]
+    [:input {:on-key-down act-on-keypress}]
     [:p]
     [:str (str (:zipper @db))]
     ])

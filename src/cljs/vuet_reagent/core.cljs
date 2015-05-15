@@ -14,8 +14,9 @@
 
 (defn home-page []
   [:div 
+   "Enter commands here:"
    [main-page/main]
-   [:h2 "Welcome to vuet_reagent"]
+   [:p]
    [:div [:a {:href "#/about"} "go to about page"]]])
 
 (defn about-page []
