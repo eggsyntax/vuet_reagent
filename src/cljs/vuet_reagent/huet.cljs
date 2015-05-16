@@ -8,12 +8,6 @@
 (defn next-index []
   (swap! index inc))
 
-(defn exit [& args]
-  (println "Exiting")
-  ;(System/exit 0)
-  
-  )
-
 (defn new-zipper [& args]
   (reset! index -1)
   (z/seq-zip (list (next-index))))
@@ -83,12 +77,6 @@
   )
 
 
-(defn explain [loc]
-  ;TODO
-  ;(let [node ])
-
-  )
-
 (defn help [& args]
   (println)
   (println
@@ -105,7 +93,6 @@
 
    \c contents
    \s show-path
-   \x explain
 
    \i insert
    \a append
@@ -116,7 +103,7 @@
    \! new-zipper
    \z undo
    \? help
-   \q exit})
+   })
 
 (defn no-op [& args]
   (println "Unrecognized command."))
@@ -125,7 +112,6 @@
   "Map char input to function-to-call"
   [c]
   (let [f (get char-fn-map (char c) nil)]
-    (println "gonna call " f)
     (or f no-op)))
 
 (defn act-on
@@ -139,43 +125,4 @@
         (swap! history conj next-zip)
         next-zip)
       zipper)))
-
-; -main versions are no longer appropriate
-#_(defn -main
-  "Loop indefinitely over user input, interpreting each char as a
-  zipper command"
-  [& args]
-  (println "Walking zipper. '?' for help.")
-  (let [init-zip (new-zipper)
-        term (Terminal/getTerminal)]
-    (loop [zipper init-zip]
-      (println)
-      (println zipper)
-      (let [input (char (.readCharacter term System/in))
-            _ (println "zipper going in is " zipper)
-            next-zip (act-on zipper input)
-            _ (println "next-zip is now " next-zip)]
-        (recur next-zip)))))
-
-#_(defn -main
-  "Loop indefinitely over user input, interpreting each char as a
-  zipper command"
-  [& args]
-  (println "Walking zipper. '?' for help.")
-  (let [init-zip (new-zipper)
-        term (Terminal/getTerminal)]
-    (loop [zipper init-zip]
-      (println)
-      (println zipper)
-      (let [input (char (.readCharacter term System/in))
-            next-fn (interpret input)
-            next-zip (next-fn zipper)]
-        (when next-zip
-          (do
-            (swap! history conj next-zip)))
-        (recur
-          (or         ; action fns either
-            next-zip  ; return the modified zipper or return nil,
-            zipper))  ; in which case act again on current zipper
-        ))))
 

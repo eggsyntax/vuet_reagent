@@ -16,8 +16,8 @@
   [:div 
    "Enter commands here:"
    [main-page/main]
-   [:p]
-   [:div [:a {:href "#/about"} "go to about page"]]])
+   ;[:div [:a {:href "#/about"} "go to about page"]]
+   ])
 
 (defn about-page []
   [:div [:h2 "About vuet_reagent"]
