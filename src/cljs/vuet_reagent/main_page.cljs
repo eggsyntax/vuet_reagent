@@ -25,11 +25,22 @@
            (h/act-on (:zipper @db) keychar)) 
     (println @db)))
 
+(defn z-node []
+  [:svg {:height 100
+           :width 500}
+     [:ellipse {:cx 220
+                :cy 50
+                :rx 20
+                :ry 20
+                :style {:fill :yellow}
+                }]
+     ])
+
 (defn main []
  (fn [] 
    [:div 
     [:input {:on-key-down act-on-keypress}]
     [:p]
     [:str (str (:zipper @db))]
-    ])
-  )
+    [z-node]
+    ]))
