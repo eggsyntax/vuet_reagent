@@ -100,7 +100,7 @@
 
    \h print-history
    \t print-from-root
-   \! new-zipper
+   \f new-zipper
    \z undo
    \? help
    })

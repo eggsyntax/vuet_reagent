@@ -36,11 +36,34 @@
                 }]
      ])
 
+(defn spaces
+  "Get some spaces for padding a string"
+  [n]
+  (apply str (take n (repeat \space))))
+
+(defn formatted-zip
+  ([z] (formatted-zip z 0))
+  ([z depth]
+  (let [deeper (+ 1 depth)
+        deeper-format (fn [x] (formatted-zip x deeper))]
+    (println "Args " z depth)
+    (cond
+      (string? z) z
+      (seq? z) (apply str (map deeper-format z))
+      (vector? z) (apply #(str % "\n") (map deeper-format z))
+      (map? z) (apply #(str % "\n") z)
+      ;(map? z) (into {} (formatted-zip (seq z) deeper))
+      :else (str "\n " (spaces depth) z)
+      )))
+  )
+
 (defn main []
  (fn [] 
-   [:div 
-    [:input {:on-key-down act-on-keypress}]
-    [:p]
-    [:str (str (:zipper @db))]
-    [z-node]
-    ]))
+   (let [[z metad] (:zipper @db)]
+     [:div
+      [:input {:on-key-down act-on-keypress}]
+      [:p]
+      [:pre (formatted-zip z)]
+      [:pre (str metad)] ;print metadata
+      [z-node]
+      ])))
