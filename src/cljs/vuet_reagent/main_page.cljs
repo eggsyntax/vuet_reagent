@@ -32,8 +32,13 @@
                 :cy 50
                 :rx 20
                 :ry 20
-                :style {:fill :yellow}
-                }]
+                :style {:fill "#E8EDB7"
+                        :stroke "#AAA"}}]
+     [:text {:x 220
+             :y 55
+             :text-anchor "middle"
+             } 8]
+
      ])
 
 (defn spaces
